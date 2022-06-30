@@ -56,11 +56,36 @@ import {
   ACTIVATE_POST,
   IS_PROF,
   ELIMINAR_POST,
+  ACCEPT_AUCTION
 } from "./ActionTypes";
 
 const axiosConfig = {
   withCredentials: true,
 };
+
+export function userAcceptAuctionfromProf(values) {
+  return async function (dispatch) {
+    try {
+      console.log("Addpostulates AXIOS OBJ:", values);
+      const resp = await axios.post(`/addContracts`, values, axiosConfig);
+
+      const json = await resp.data;
+      console.log(json);
+      return dispatch({
+        type: ACCEPT_AUCTION,
+        payload: json,
+      });
+    } catch (error) {
+      console.log(error);
+      return dispatch({
+        type: ACCEPT_AUCTION,
+        payload: error.response.data,
+      });
+    }
+  };
+}
+
+
 //Login & Logout Actions
 export function login(values) {
   return async function (dispatch) {
@@ -938,14 +963,3 @@ export function eliminarPOST(values) {
   };
 }
 
-export function userAcceptAuctionfromProf(values) {
-  return async function (dispatch) {
-    try {
-      const json = await axios.post(`/addContracts`, values);
-      console.log("json del action", json);
-      return json;
-    } catch (error) {
-      console.log(error);
-    }
-  };
-}

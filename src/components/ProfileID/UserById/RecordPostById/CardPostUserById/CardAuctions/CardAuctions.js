@@ -76,12 +76,13 @@ const CardAuctions = ({
       // console.log("SWAL", resp);
       if (resp) {
         dispatch(userAcceptAuctionfromProf(obj)).then((resp) => {
-          console.log(resp);
-          if (resp.data === "Contract created") {
+          console.log("-->>", resp);
+          if (resp.payload === "Contract created") {
             swal({
               title: "ACEPTACIÓN DE APLICACIÓN",
               text: `Genial! Usted ha Creado un Contrato con ${name} ${surname}`,
             });
+            window.location.reload();
           } else {
             swal({
               title: "ACEPTACIÓN DE APLICACIÓN",
